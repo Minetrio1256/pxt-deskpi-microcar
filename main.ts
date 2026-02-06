@@ -9,25 +9,25 @@ namespace robot {
     // =======================
 
     export enum Motor {
-        //% block="gauche"
+        //% block="Left"
         Left,
-        //% block="droite"
+        //% block="Right"
         Right
     }
 
     export enum Direction {
-        //% block="avant"
+        //% block="Forward"
         Forward,
-        //% block="arrière"
+        //% block="Backward"
         Backward,
-        //% block="arrêt"
+        //% block="Stop"
         Stop
     }
 
     /**
-     * Définit la direction d'un moteur
+     * Sets the direction of a motor
      */
-    //% block="moteur %motor direction %direction"
+    //% block="motor %motor direction %direction"
     export function setMotor(motor: Motor, direction: Direction): void {
 
         let forwardPin: DigitalPin
@@ -65,9 +65,9 @@ namespace robot {
     let initialized = false
 
     /**
-     * Initialise l'écran OLED
+     * Initializes the OLED screen
      */
-    //% block="initialiser l'écran OLED"
+    //% block="initialize OLED screen"
     export function initOLED(): void {
         if (initialized) return
 
@@ -90,9 +90,9 @@ namespace robot {
     }
 
     /**
-     * Efface l'écran OLED
+     * Clears the OLED screen
      */
-    //% block="effacer l'écran OLED"
+    //% block="clear OLED screen"
     export function clearOLED(): void {
         for (let page = 0; page < 8; page++) {
             setPage(page)
@@ -103,9 +103,9 @@ namespace robot {
     }
 
     /**
-     * Affiche du texte sur une ligne (0–7)
+     * Displays text on a line (0–7)
      */
-    //% block="afficher %text à la ligne %line"
+    //% block="show %text at line %line"
     export function showText(text: string, line: number): void {
         if (!initialized) initOLED()
         setPage(line)
@@ -248,9 +248,9 @@ namespace robot {
     let strip: neopixel.Strip = null
 
     /**
-     * Initialise la bande LED (4 LEDs sur P6)
+     * Initializes the LED strip (4 LEDs on P6)
      */
-    //% block="initialiser bande LED"
+    //% block="initialize LED strip"
     export function initLED(): void {
         if (!strip) {
             strip = neopixel.create(DigitalPin.P6, 4, NeoPixelMode.RGB)
@@ -260,9 +260,9 @@ namespace robot {
     }
 
     /**
-     * Définit la LED RGB à l'aide du sélecteur de couleur
+     * Sets the RGB LED using the color picker
      */
-    //% block="LED RGB %index à couleur %color"
+    //% block="LED RGB %index to color %color"
     //% color.shadow="colorNumberPicker"
     export function setLEDColor(index: number, color: number): void {
         if (!strip) initLED()
@@ -274,9 +274,9 @@ namespace robot {
     }
 
     /**
-     * Définit la LED RGB avec valeurs R,G,B manuelles
+     * Sets the RGB LED with manual R,G,B values
      */
-    //% block="LED RGB %index à R %r G %g B %b"
+    //% block="LED RGB %index to R %r G %g B %b"
     export function setLEDManual(index: number, r: number, g: number, b: number): void {
         if (!strip) initLED()
         if (index < 0 || index > 3) return
@@ -287,9 +287,9 @@ namespace robot {
     }
 
     /**
-     * Efface toutes les LEDs
+     * Clears all LEDs
      */
-    //% block="effacer toutes les LEDs"
+    //% block="clear all LEDs"
     export function clearLED(): void {
         if (!strip) return
         strip.clear()
@@ -297,76 +297,76 @@ namespace robot {
     }
 
     /**
-     * Lit le volume sur P3 et le mappe de 0 à 100
+     * Reads the volume on P3 and maps it from 0 to 100
      */
-    //% block="volume sur P3 (0-100)"
+    //% block="volume on P3 (0-100)"
     export function readVolume(): number {
         let val = pins.analogReadPin(AnalogPin.P3)
         return val
     }
 
     /**
- * Lit le capteur optique gauche
+ * Reads the left optical sensor
  */
-    //% block="capteur optique gauche"
+    //% block="left optical sensor"
     export function leftSensor(): number {
         return pins.analogReadPin(AnalogPin.P4)  // 0–1023
     }
 
     /**
-     * Lit le capteur optique droit
+     * Reads the right optical sensor
      */
-    //% block="capteur optique droit"
+    //% block="right optical sensor"
     export function rightSensor(): number {
         return pins.analogReadPin(AnalogPin.P0)  // 0–1023
     }
 
     /**
-     * Lit le bouton droit
+     * Reads the right button
      */
-    //% block="bouton droit"
+    //% block="right button"
     export function rightButton(): boolean {
         return pins.digitalReadPin(DigitalPin.P5) === 0
     }
 
     /**
-     * Lit le bouton gauche
+     * Reads the left button
      */
-    //% block="bouton gauche"
+    //% block="left button"
     export function leftButton(): boolean {
         return pins.digitalReadPin(DigitalPin.P11) === 0
     }
 
     /**
- * Lit le capteur gris gauche
+ * Reads the left grey sensor
  */
-    //% block="capteur gris gauche"
+    //% block="left grey sensor"
     export function leftGrey(): number {
         return pins.analogReadPin(AnalogPin.P2)
     }
 
     /**
-     * Lit le capteur gris droit
+     * Reads the right grey sensor
      */
-    //% block="capteur gris droit"
+    //% block="right grey sensor"
     export function rightGrey(): number {
         return pins.analogReadPin(AnalogPin.P1)
     }
 
     /**
-     * Lit le capteur gris gauche en pourcentage (0–100)
+     * Reads the left grey sensor as percentage (0–100)
      */
-    //% block="capteur gris gauche %type"
-    //% type.defl="pourcentage"
+    //% block="left grey sensor %type"
+    //% type.defl="percentage"
     export function leftGreyPercent(): number {
         return Math.map(leftGrey(), 0, 1023, 0, 100)
     }
 
     /**
-     * Lit le capteur gris droit en pourcentage (0–100)
+     * Reads the right grey sensor as percentage (0–100)
      */
-    //% block="capteur gris droit %type"
-    //% type.defl="pourcentage"
+    //% block="right grey sensor %type"
+    //% type.defl="percentage"
     export function rightGreyPercent(): number {
         return Math.map(rightGrey(), 0, 1023, 0, 100)
     }
