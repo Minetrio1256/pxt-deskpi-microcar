@@ -1,6 +1,6 @@
 {
     "name": "DeskPi MicroCar",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "DeskPi MicroCar control library for micro:bit",
     "dependencies": {
         "core": "*",
@@ -9,6 +9,7 @@
         "neopixel": "github:microsoft/pxt-neopixel#v0.7.6"
     },
     "files": [
+        "main.blocks",
         "deskpi.ts",
         "README.md",
         "_locales/fr/strings.json",
