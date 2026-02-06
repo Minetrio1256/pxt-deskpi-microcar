@@ -371,5 +371,29 @@ namespace robot {
         return Math.map(rightGrey(), 0, 1023, 0, 100)
     }
 
+    /**
+     * Reads the ultrasonic sensor distance in centimeters
+     */
+    //% block="ultrasonic distance cm"
+    export function ultrasonicDistance(): number {
+        const triggerPin = DigitalPin.P9
+        const echoPin = DigitalPin.P12
+
+        // Send 10µs pulse
+        pins.digitalWritePin(triggerPin, 0)
+        control.waitMicros(2)
+        pins.digitalWritePin(triggerPin, 1)
+        control.waitMicros(10)
+        pins.digitalWritePin(triggerPin, 0)
+
+        // Measure echo pulse duration
+        let duration = pins.pulseIn(echoPin, PulseValue.High)
+
+        // Convert to centimeters: distance = (duration / 2) / 29.1
+        // where 29.1 is microseconds per centimeter (speed of sound)
+        let distance = duration / 58
+
+        return distance
+    }
 
 }

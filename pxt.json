@@ -1,7 +1,7 @@
 {
     "name": "DeskPi MicroCar",
-    "version": "1.0.0",
-    "description": "",
+    "version": "1.2.0",
+    "description": "DeskPi MicroCar control library for micro:bit",
     "dependencies": {
         "core": "*",
         "radio": "*",
