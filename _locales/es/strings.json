@@ -22,5 +22,6 @@
     "robot.leftGreyPercent|block": "sensor gris izquierdo %type",
     "robot.rightGreyPercent|block": "sensor gris derecho %type",
     "robot.ultrasonicDistance|block": "distancia ultrasónica cm",
+    "robot.showUltrasonicOnDisplay|block": "mostrar distancia ultrasónica cm en pantalla",
     "percentage": "porcentaje"
 }
