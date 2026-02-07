@@ -375,39 +375,61 @@ namespace robot {
      * Reads the ultrasonic sensor distance in centimeters
      */
     //% block="ultrasonic distance cm"
-    export function ultrasonicDistance(): number {
+    export function getUltrasonicDistanceCM(): number {
         const echoPin = DigitalPin.P9      // Echo on P9
         const triggerPin = DigitalPin.P12  // Trigger on P12
 
-        // Send 10µs pulse on trigger pin
+        // Make sure trigger is low
         pins.digitalWritePin(triggerPin, 0)
         control.waitMicros(2)
+
+        // Send 10µs trigger pulse
         pins.digitalWritePin(triggerPin, 1)
         control.waitMicros(10)
         pins.digitalWritePin(triggerPin, 0)
 
-        // Measure echo pulse duration in microseconds
-        let duration = pins.pulseIn(echoPin, PulseValue.High)
+        // Measure echo pulse (timeout ≈ 4m)
+        let duration = pins.pulseIn(echoPin, PulseValue.High, 25000)
 
-        // Convert to centimeters: distance = (duration / 2) / 29.1
-        // Speed of sound is ~343 m/s, so ~29.1 microseconds per cm (or 58 for round trip)
-        let distance = duration / 58
+        // Convert microseconds to centimeters
+        return duration / 58
+    }
 
-        return distance
+    // =======================
+    // IR RECEIVER (Pin 7)
+    // =======================
+
+    let lastIRCode: number = 0
+
+    /**
+     * Detects if IR signal is received
+     */
+    //% block="IR signal received"
+    export function isIRReceived(): boolean {
+        let pulseWidth = pins.pulseIn(DigitalPin.P7, PulseValue.Low, 100000)
+        return pulseWidth > 0
     }
 
     /**
-     * Display ultrasonic distance on OLED and loop
+     * Gets the last IR button code
      */
-    //% block="show ultrasonic cm on display|afficher distance ultrasonic cm sur l'écran"
-    export function showUltrasonicOnDisplay(): void {
-        initOLED()
-        while (true) {
-            clearOLED()
-            let distance = ultrasonicDistance()
-            showText("Dist: " + Math.round(distance) + "cm", 0)
-            basic.pause(100)
-        }
+    //% block="IR button code"
+    export function getIRCode(): number {
+        return lastIRCode
     }
 
+    /**
+     * Reads IR signal and updates code
+     */
+    //% block="read IR signal"
+    export function readIRSignal(): number {
+        let code = 0
+        // Pulse in on P7 to detect IR signal
+        let pulseWidth = pins.pulseIn(DigitalPin.P7, PulseValue.Low, 100000)
+        
+        code = pulseWidth / 1000  // Raw code
+        
+        lastIRCode = code
+        return code
+    }
 }
