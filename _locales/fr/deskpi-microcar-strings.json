@@ -21,9 +21,6 @@
     "robot.rightGrey|block": "capteur gris droit",
     "robot.leftGreyPercent|block": "capteur gris gauche %type",
     "robot.rightGreyPercent|block": "capteur gris droit %type",
-    "robot.getUltrasonicDistanceCM|block": "distance ultrasonic cm",
-    "robot.isIRReceived|block": "signal IR reçu",
-    "robot.getIRCode|block": "code bouton IR",
-    "robot.readIRSignal|block": "lire signal IR",
+    "robot.getUltrasonicDistanceCM|block": "distance ultrasonique cm",
     "percentage": "pourcentage"
 }
