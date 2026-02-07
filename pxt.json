@@ -12,8 +12,8 @@
         "main.blocks",
         "deskpi.ts",
         "README.md",
-        "_locales/fr/strings.json",
-        "_locales/es/strings.json"
+        "_locales/fr/deskpi-microcar-strings.json",
+        "_locales/es/deskpi-microcar-strings.json"
     ],
     "testFiles": [
         "test.ts"
