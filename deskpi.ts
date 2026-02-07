@@ -394,46 +394,4 @@ namespace robot {
         // Convert microseconds to centimeters
         return duration / 58
     }
-
-    // =======================
-    // IR RECEIVER (Pin 7)
-    // =======================
-
-    let irPin: DigitalPin = DigitalPin.P7
-    let lastCode = 0
-
-    //% block="init IR on pin %pin"
-    export function initIR(pin: DigitalPin) {
-        irPin = pin
-        pins.setPull(irPin, PinPullMode.PullUp)
-    }
-
-    //% block="IR pressed"
-    export function irPressed(): boolean {
-        // Wait for NEC header (LOW ≈ 9ms)
-        let header = pins.pulseIn(irPin, PulseValue.Low, 12000)
-        return header > 8000
-    }
-
-    //% block="read IR button"
-    export function readIR(): number {
-        let code = 0
-
-        // Skip header LOW + HIGH
-        pins.pulseIn(irPin, PulseValue.Low)
-        pins.pulseIn(irPin, PulseValue.High)
-
-        for (let i = 0; i < 32; i++) {
-            pins.pulseIn(irPin, PulseValue.Low)
-            let highPulse = pins.pulseIn(irPin, PulseValue.High)
-
-            // NEC: short = 0, long = 1
-            if (highPulse > 1000) {
-                code |= (1 << i)
-            }
-        }
-
-        lastCode = code
-        return code
-    }
 }
